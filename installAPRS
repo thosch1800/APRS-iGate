@@ -1,0 +1,72 @@
+echo "##### cleanup #####"
+sudo apt-get remove --purge pulseaudio -y
+sudo apt-get autoremove -y
+sudo rm -rf /home/pi/.asoundrc /home/pi/.pulse
+sudo apt-get install sox -y
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo "##### updating modprobe blacklist  #####"
+echo "blacklist dvb_usb_rtl28xxu" > raspi-blacklist.conf
+echo "blacklist dvb_usb_v2" >> raspi-blacklist.conf
+echo "blacklist rtl_2830" >> raspi-blacklist.conf
+echo "blacklist rtl_2832" >> raspi-blacklist.conf
+echo "blacklist r820t" >> raspi-blacklist.conf
+sudo rm /etc/modprobe.d/raspi-blacklist.conf 
+sudo cp raspi-blacklist.conf /etc/modprobe.d/raspi-blacklist.conf
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo "##### installing rtl-sdr #####"
+cd ~/src/
+sudo apt-get install git build-essential cmake libusb-1.0-0-dev -y
+rm -rf rtl-sdr
+git clone git://git.osmocom.org/rtl-sdr.git
+cd rtl-sdr
+mkdir build
+cd build
+cmake ../ -DDETACH_KERNEL_DRIVER=ON -DINSTALL_UDEV_RULES=ON
+make
+sudo make install
+sudo ldconfig
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo "##### installing multimon-ng #####"
+cd ~/src
+sudo apt-get install qt4-qmake libpulse-dev libx11-dev patch -y
+rm -rf multimonNG
+git clone https://github.com/EliasOenal/multimonNG.git
+cd multimonNG
+mkdir build
+cd build
+qmake-qt4 ../multimon-ng.pro
+make
+sudo make install
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo "##### installing pymultimonaprs #####"
+cd ~/src/
+sudo apt-get install python2.7 python-pkg-resources -y
+sudo rm -rf pymultimonaprs
+git clone https://github.com/asdil12/pymultimonaprs.git
+cd pymultimonaprs
+sudo python2 setup.py build
+sudo python2 setup.py install
+sudo cp pymultimonaprs.init /etc/init.d/pymultimonaprs
+sudo chmod +x /etc/init.d/pymultimonaprs
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo "##### finished #####"
