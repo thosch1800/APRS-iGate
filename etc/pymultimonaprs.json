@@ -1,0 +1,32 @@
+{
+        "callsign": "DL1ABC-1",
+        "passcode": "12345",
+        "gateway": ["euro.aprs2.net:14580","noam.aprs2.net:14580"],
+        "preferred_protocol": "any",
+        "append_callsign": true,
+        "source": "rtl",
+        "rtl": {
+                "freq": 144.800,
+                "ppm": 1,
+                "gain":48,
+                "offset_tuning": false,
+                "device_index": 0
+        },
+        "alsa": {
+                "device": "default"
+        },
+        "beacon": {
+                "lat": 48.123456,
+                "lng": 11.123456,
+                "table": "I",
+                "symbol": "&",
+                "comment": "",
+                "status": {
+                        "text": "",
+                        "file": false
+                },
+                "weather": false,
+                "send_every": 900,
+                "ambiguity": 1
+        }
+}
