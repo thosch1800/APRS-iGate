@@ -1,0 +1,1 @@
+rtl_fm -M wbfm -f 99.4M -g 48 -p 1 | play -r 32k -t raw -e s -b 16 -c 1 -V1 -
