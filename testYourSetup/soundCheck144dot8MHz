@@ -1,0 +1,1 @@
+rtl_fm -f 144.800M -g 48 -p 1 | play -r 24k -t raw -e s -b 16 -c 1 -V1 -
